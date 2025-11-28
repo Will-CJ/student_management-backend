@@ -1,6 +1,7 @@
 package com.example.student_service.application.usecase;
 
 import com.example.student_service.domain.repository.StudentRepository;
+import com.example.student_service.presentation.exception.StudentNotFoundException;
 
 public class DeleteStudentUseCase {
 
@@ -13,7 +14,7 @@ public class DeleteStudentUseCase {
     public void execute(String id) {
         var studentOpt = repo.findById(id);
         if (studentOpt.isEmpty()) {
-            throw new RuntimeException("Student not found with id: " + id);
+            throw new StudentNotFoundException("Student not found with id: " + id);
         }
 
         repo.deleteById(id);

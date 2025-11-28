@@ -17,15 +17,24 @@ public class GlobalExceptionHandler {
 
         Map<String, String> errors = new HashMap<>();
 
-        ex.getBindingResult().getFieldErrors().forEach(err -> {
-            errors.put(err.getField(), err.getDefaultMessage());
-        });
+        ex.getBindingResult().getFieldErrors()
+                .forEach(err -> errors.put(err.getField(), err.getDefaultMessage()));
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of(
                         "status", 400,
                         "errors", errors
+                ));
+    }
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<?> handleNotFound(StudentNotFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "status", 404,
+                        "error", ex.getMessage()
                 ));
     }
 }

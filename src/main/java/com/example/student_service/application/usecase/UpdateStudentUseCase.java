@@ -3,6 +3,7 @@ package com.example.student_service.application.usecase;
 import com.example.student_service.domain.model.Student;
 import com.example.student_service.domain.repository.StudentRepository;
 import com.example.student_service.application.command.UpdateStudentCommand;
+import com.example.student_service.presentation.exception.StudentNotFoundException;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public class UpdateStudentUseCase {
     public Student execute(UpdateStudentCommand cmd) {
         Optional<Student> optional = repo.findById(cmd.id());
         if (optional.isEmpty()) {
-            throw new RuntimeException("Student not found with id: " + cmd.id());
+            throw new StudentNotFoundException("Student not found with id: " + cmd.id());
         }
 
         Student student = optional.get();
