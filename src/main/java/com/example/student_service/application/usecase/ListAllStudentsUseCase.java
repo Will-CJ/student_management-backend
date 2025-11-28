@@ -21,7 +21,7 @@ public class ListAllStudentsUseCase {
 
     public List<StudentResponseDto> execute() {
         return repo.findAll().stream()
-                .map(s -> new StudentResponseDto(s.getId(), s.getFullName(), s.getAge()))
+                .map(s -> new StudentResponseDto(s.getId(),s.getFirstName(), s.getLastName(), s.getBirthDate().toString(), s.getFullName(), s.getAge()))
                 .collect(Collectors.toList());
     }
 }
