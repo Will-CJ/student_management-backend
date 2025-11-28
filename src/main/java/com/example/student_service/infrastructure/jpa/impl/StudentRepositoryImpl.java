@@ -4,6 +4,7 @@ import com.example.student_service.domain.model.Student;
 import com.example.student_service.domain.repository.StudentRepository;
 import com.example.student_service.infrastructure.jpa.entity.StudentEntity;
 import com.example.student_service.infrastructure.jpa.repository.StudentJpaRepository;
+import org.springframework.data.domain.Sort;
 
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public List<Student> findAll() {
-        return jpaRepo.findAll().stream()
+        return jpaRepo.findAll(Sort.by("createdAt")).stream()
                 .map(e -> new Student(e.getId(), e.getFirstName(), e.getLastName(), e.getBirthDate()))
                 .collect(Collectors.toList());
     }

@@ -1,10 +1,16 @@
 package com.example.student_service.infrastructure.jpa.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Access(AccessType.FIELD)
 @Table(name = "students")
 public class StudentEntity {
@@ -20,6 +26,13 @@ public class StudentEntity {
 
     @Column(nullable = false)
     private LocalDate birthDate;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
 
     public StudentEntity() {}
@@ -37,4 +50,11 @@ public class StudentEntity {
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public LocalDate getBirthDate() { return birthDate; }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
