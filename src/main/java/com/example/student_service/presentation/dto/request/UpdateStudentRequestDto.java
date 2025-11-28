@@ -6,7 +6,11 @@ public record UpdateStudentRequestDto(
         @NotBlank(message = "Student ID is required")
         String id,
 
-        String firstName,  // optional update
-        String lastName,   // optional update
-        String birthDate   // optional update, format: yyyy-MM-dd
+        @NotBlank(message = "First name is required")
+        String firstName,
+
+        String lastName,
+
+        @NotBlank(message = "Birth date is required")
+        String birthDate
 ) {}
